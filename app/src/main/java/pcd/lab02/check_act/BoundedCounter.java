@@ -10,27 +10,21 @@ public class BoundedCounter {
 		this.max = max;
 	}
 	
-	public void inc() throws OverflowException {
-		synchronized (this){
-			if (cont + 1 > max){
-				throw new OverflowException();
-			}
-			cont++;
+	synchronized public void inc() throws OverflowException {
+		if (cont + 1 > max){
+			throw new OverflowException();
 		}
+		cont++;
 	}
 
-	public  void dec() throws UnderflowException {
-		synchronized (this){
-			if (cont - 1 < min){
-				throw new UnderflowException();
-			}
-			cont--;
+	synchronized public void dec() throws UnderflowException {
+		if (cont - 1 < min){
+			throw new UnderflowException();
 		}
+		cont--;
 	}
 	
-	public  int getValue(){
-		synchronized (this){
-			return cont;
-		}
+	synchronized public int getValue(){
+		return cont;
 	}
 }
