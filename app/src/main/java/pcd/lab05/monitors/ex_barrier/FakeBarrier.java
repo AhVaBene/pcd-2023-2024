@@ -4,11 +4,20 @@ package pcd.lab05.monitors.ex_barrier;
  * Barrier - to be implemented
  */
 public class FakeBarrier implements Barrier {
-	
-	public FakeBarrier(int nParticipants) {	}
+	private final int nPartecipants;
+	private int acc;
+	public FakeBarrier(int nParticipants) {
+		this.acc = 0;
+		this.nPartecipants = nParticipants;
+	}
 	
 	@Override
-	public void hitAndWaitAll() throws InterruptedException {	
+	public synchronized void hitAndWaitAll() throws InterruptedException {
+		this.acc++;
+		while(this.acc < this.nPartecipants) {
+			wait();
+		}
+		notify();
 	}
 
 	
